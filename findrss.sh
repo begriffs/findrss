@@ -2,7 +2,7 @@ for path in $(echo {,feed/,feeds/,rss/,blog/}{,all,atom,feed,index,posts,posts/d
 
 	LINE=$(curl -L -s "$1/$path" | head -1)
 
-	if printf "%s" "$LINE" | grep -q -E "feed|xml" ;
+	if printf "%s" "$LINE" | grep -v xhtml | grep -q -E "feed|xml" ;
 	then
 		# show canonical redirect location
 		curl -sLI -o /dev/null -w '%{url_effective}' "$1/$path"
